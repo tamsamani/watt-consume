@@ -4,12 +4,14 @@ import Page from "./../Components/Page";
 
 //import main modules
 import DeviceControl from "./../Components/DeviceControl";
+import Toggler from "./../Components/Toggler";
+import Icon from "./../Components/Icon";
 
 export default ({ parent, ...props }) => {
-    //
-    return <Page className="controls" {...props}>
+	//
+	return <Page className="controls" {...props}>
 		<div>
-		    <Switch name="switch7" label="ON|OFF"/>
+		    no switch
 		</div>
 		<div>
 		    <Toggler className="mdl-button" on={<Icon power color="green" />} off={<Icon power_off color="orange" />} />

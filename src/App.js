@@ -1,14 +1,14 @@
 import React, { Component, useState } from 'react';
-import MainStorage from "./Storage";
+import MainStorage from "./Modules/Storage";
 
 import Footer from "./Components/Footer";
 import SnackBar from "./Components/SnackBar";
 import IconSet from "./Components/IconSet";
 
 import Page from "./Components/Page";
-import HomePage from "./../Pages/HomePage";
+import HomePage from "./Pages/HomePage";
 import EquipmentPage from "./Pages/EquipmentPage";
-import HistoryPage from "./Pages/Historypage";
+import HistoryPage from "./Pages/HistoryPage";
 import SettingsPage from "./Pages/SettingsPage";
 import DownloadPage from "./Pages/DownloadPage";
 import HelpPage from "./Pages/HelpPage";
@@ -20,7 +20,7 @@ import HelpPage from "./Pages/HelpPage";
 class App extends Component {
 	state = {
 		title: "WattConsume",
-		active: null,
+		active: "home_0",
 		selectedIcon: 0,
 		loaded: false
 	}

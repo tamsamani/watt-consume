@@ -1,4 +1,4 @@
-const UID = (n,b=36)=>[...Array(n)].map(e=>(Math.random()*b|0).toString(b)[`to${Math.random()>.5?"Low":"Upp"}erCase`]()).join("");
+import UID from "./UID"
 
 /**
  * @description Elementary data store for manipulate data with main storage
@@ -9,18 +9,18 @@ class StoreObject {
 	 * @param {any} model any non-circular object to store it
 	 * @param {MainStorage} parent A main storage where located all related data; default is null
 	 */
-	constructor (key, model, parent = null) {
-		this.parent = ()=>parent;
+	constructor(key, model, parent = null) {
+		this.parent = () => parent;
 		this.key = key;
 		this.model = model;
-		this.version = parent ? parent.version:-1;
+		this.version = parent ? parent.version : -1;
 		this.created = Date.now();
-		this.updated = -1;	
+		this.updated = -1;
 	}
 
-	upgrade(newModel) { return this.parent().upgrade(this.key, newModel);}
-	delete(){ this.parent().delete(this.key); }
-	save(){ return this.parent().save(this.key); }
+	upgrade(newModel) { return this.parent().upgrade(this.key, newModel); }
+	delete() { this.parent().delete(this.key); }
+	save() { return this.parent().save(this.key); }
 
 	static create(obj, parent) {
 		let store = new StoreObject(obj.key, obj.model, parent);
@@ -33,7 +33,7 @@ class StoreObject {
 
 
 export default class MainStorage {
-	constructor (name, version, storage) {
+	constructor(name, version, storage) {
 		this.name = name;
 		this.version = version;
 		this.localStorage = storage || window.localStorage;
@@ -44,21 +44,22 @@ export default class MainStorage {
 			this.uKey = UID(16);
 			this.savedStores = new Set();
 			this.save();
-		} else {
+		}
+		else {
 			this.savedStores = new Set(this.localStorage.getItem(this.uKey).match(/\w+/g));
 			this.savedStores.forEach(
-				key=>this.store[key]=StoreObject.create(JSON.parse(this.localStorage.getItem(key+this.uKey)), this)
+				key => this.store[key] = StoreObject.create(JSON.parse(this.localStorage.getItem(key + this.uKey)), this)
 			);
 		}
 
-		
+
 	}
 
-	storeObject (key, model) {
+	storeObject(key, model) {
 		return new StoreObject(key, model, this);
 	}
 
-	create (key, model) {
+	create(key, model) {
 		if (key in this.store) return false;
 		this.store[key] = this.storeObject(key, model);
 		return this.store[key];
@@ -66,7 +67,7 @@ export default class MainStorage {
 	}
 
 	// this function create and update automatically
-	createIfNot (key, defaultModel) {
+	createIfNot(key, defaultModel) {
 		if (key in this.store) {
 			if (defaultModel) {
 				return this.upgrade(key, defaultModel);
@@ -75,18 +76,18 @@ export default class MainStorage {
 		else return this.create(key, defaultModel).save();
 	}
 
-	upgrade (key, newModel) {
+	upgrade(key, newModel) {
 		if (key in this.store) {
-			let {created} = this.store[key];
-			this.store[key] = Object.assign(this.store[key], this.storeObject(key, newModel), {created});
+			let { created } = this.store[key];
+			this.store[key] = Object.assign(this.store[key], this.storeObject(key, newModel), { created });
 			return this.store[key];
 		}
 		return false;
 	}
 
 	delete(key) {
-		if (key in this.store){
-			this.localStorage.removeItem(key+this.uKey);
+		if (key in this.store) {
+			this.localStorage.removeItem(key + this.uKey);
 			this.store[key] = null;
 			this.delete(key);
 			delete this.store[key];
@@ -95,26 +96,28 @@ export default class MainStorage {
 		return false;
 	}
 
-	get (key) {
+	get(key) {
 		if (key in this.store) {
 			return this.store[key];
 		}
 		return false;
 	}
 
-	save (key) {
+	save(key) {
 		if (!key) {
-			this.localStorage.setItem(this.name,  this.uKey);
+			this.localStorage.setItem(this.name, this.uKey);
 			this.localStorage.setItem(this.uKey, Array.from(this.savedStores));
 			for (let k in this.store) {
-				this.localStorage.setItem(k+this.uKey, JSON.stringify(this.store[k]))
+				this.localStorage.setItem(k + this.uKey, JSON.stringify(this.store[k]))
 			}
 			return this;
-		} else if (key in this.store) {
+		}
+		else if (key in this.store) {
 			this.savedStores.add(key);
 			this.localStorage.setItem(this.uKey, Array.from(this.savedStores));
-			this.localStorage.setItem(key+this.uKey, JSON.stringify(this.store[key]));
+			this.localStorage.setItem(key + this.uKey, JSON.stringify(this.store[key]));
 			return this.store[key];
-		} else return false;
+		}
+		else return false;
 	}
 }
