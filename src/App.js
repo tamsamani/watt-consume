@@ -6,26 +6,28 @@ import SnackBar from "./Components/SnackBar";
 import IconSet from "./Components/IconSet";
 
 import Page from "./Components/Page";
-import HomePage from "./Components/HomePage";
-import EquipmentPage from "./Components/EquipmentPage";
-import HistoryPage from "./Components/Historypage";
-import SettingsPage from "./Components/SettingsPage";
-import DownloadPage from "./Components/DownloadPage";
-import HelpPage from "./Components/HelpPage";
+import HomePage from "./../Pages/HomePage";
+import EquipmentPage from "./Pages/EquipmentPage";
+import HistoryPage from "./Pages/Historypage";
+import SettingsPage from "./Pages/SettingsPage";
+import DownloadPage from "./Pages/DownloadPage";
+import HelpPage from "./Pages/HelpPage";
 // import from "./Components/";
 
 
 
+
 class App extends Component {
-  state = {
-    title : "WattConsume",
-    active : null,
-    selectedIcon : 0,
-  }
-  
-  Icons = "wb_incandescent tv print settings_input_hdmi settings_input_component settings_power speaker settings_remote settings_voice notification_important phone games video_label stay_current_portrait battery_charging_full devices highlight computer desktop_mac router scanner videogame_asset photo_camera straighten kitchen room_service ac_unit whatshot power hot_tub flash_on camera_rear extension".split(" ");
-  
-  getActivePage(active) {
+	state = {
+		title: "WattConsume",
+		active: null,
+		selectedIcon: 0,
+		loaded: false
+	}
+
+
+
+	getActivePage(active) {
 		switch (active) {
 			case "home_0":
 				return <HomePage parent={this} />;
@@ -47,16 +49,16 @@ class App extends Component {
 				</Page>;
 		}
 	}
-  
-  render() {
-    return (<div className="app mdl-layout">
+
+	render() {
+		return (<div className="app mdl-layout">
 			<h3>{this.state.title}</h3>
 			<Footer parent={this} />
 			<SnackBar id="feedBack" />
 			<IconSet parent={this} selected={this.state.selectedIcon} />
 			{this.getActivePage(this.state.active)}
 		</div>);
-  }
+	}
 }
 
 export default App;
