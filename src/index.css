@@ -39,6 +39,16 @@ code,
   align-content: space-between;
 }
 
+.device-control>*:first-child {
+  height: 2em;
+  width: 2.5em;
+  margin-right: 0.5em;
+  font-size: 1em !important;
+  line-height: 2em;
+  text-align: center;
+  border-radius: 2em 0 0 2em;
+}
+
 .controls>.device-control {
   margin: 0.5em auto;
 }
@@ -53,7 +63,10 @@ code,
   flex-grow: 8;
 }
 
-.control-actions {
+.device-control .control-actions {
+  
+}
+.device-control .control-action {
   flex-grow: 0;
   font-size: 2em;
 }

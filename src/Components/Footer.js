@@ -3,10 +3,10 @@ import React from "react";
 import Icon from "./Icon";
 import Button from "./Button";
 
-export default ({parent, ...props}) => {
-    
-    let buttons = ["home", "add", "assignment", "settings", "get_app", "help"];
-    
+export default ({ parent, ...props }) => {
+
+	let buttons = ["home", "add", "assignment", "settings", "get_app", "help"];
+
 	return <div className="footer mdl-color--primary">
 		{
 			//textColor="white"
@@ -15,7 +15,7 @@ export default ({parent, ...props}) => {
 				let isActive = parent.state.active == key;
 				return <Button key={key}
 					className={isActive ? "mdl-color-text--accent" : ""}
-					onClick={() => parent.goto(key)}>
+					onClick={() => parent.setState({ active : key })}>
 					<Icon >{name}</Icon>
 				</Button>;
 			})

@@ -19,10 +19,33 @@ import HelpPage from "./Pages/HelpPage";
 
 class App extends Component {
 	state = {
-		title: "WattConsume",
 		active: "home_0",
-		selectedIcon: 0,
 		loaded: false
+	}
+
+	store = {
+		set(obj) {
+			Object.assign(this, obj);
+			return this;
+		},
+		pageTitle: "WattConsume",
+
+		selectedIcon: 0,
+	}
+
+	actions = {
+		do: (action, ...arg) => {
+			if (action in this.actions) {
+				this.action[action](...arg);
+			}
+		},
+		showIconSet: state => {
+			let icst = document.querySelector(".iconset");
+			if (icst) {
+				if (state) icst.classList.add("show");
+				else icst.classList.remove("show");
+			}
+		}
 	}
 
 
@@ -42,20 +65,53 @@ class App extends Component {
 			case "help_5":
 				return <HelpPage parent={this} target="" />;
 			default:
-				return <Page>
+				return <Page parent={this} title="Not Found" >
 					<h4>Page Not Found - 404</h4>
 					<p>I thinks there an error for reach this type of page</p>
-					<h5><a href="#" onClick={e => this.goto("help_5")} className="link">Get help?</a></h5>
+					<h5><a href="#" onClick={e => this.setState({active : "help_5"})} className="link">Get help?</a></h5>
 				</Page>;
 		}
 	}
 
+	// change store data related by pages
+	restore() {
+		const { active } = this.state;
+		let { pageTitle } = this.store;
+		switch (active) {
+			case "home_0":
+				// pageTitle = "WattConsume";
+				break;
+			case "add_1":
+				pageTitle = "Devices";
+				break;
+			case "assignment_2":
+				pageTitle = "History";
+				break;
+			case "settings_3":
+				pageTitle = "Settings";
+				break;
+			case "get_app_4":
+				pageTitle = "Downloads";
+				break;
+			case "help_5":
+				pageTitle = "Help Page";
+				break;
+			default:
+				pageTitle = "WattConsume";
+				break;
+		}
+
+		this.store.set({ pageTitle });
+
+	}
+
 	render() {
+		this.restore();
 		return (<div className="app mdl-layout">
-			<h3>{this.state.title}</h3>
+			<h3>{this.store.pageTitle}</h3>
 			<Footer parent={this} />
 			<SnackBar id="feedBack" />
-			<IconSet parent={this} selected={this.state.selectedIcon} />
+			<IconSet parent={this} selected={this.store.selectedIcon} />
 			{this.getActivePage(this.state.active)}
 		</div>);
 	}

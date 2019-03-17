@@ -9,8 +9,9 @@ import Icon from "./../Components/Icon";
 
 
 export default ({ parent, ...props }) => {
-    const [format, setFormat] = useState("csv");
-    return <Page className="center" {...props}>
+
+	const [format, setFormat] = useState("csv");
+	return <Page className="center" {...props}>
 		<p>You can here Download or back up & share your data to keep it in hand, please select a format you want to handle</p>
 
 		<Button id="format-menu-state" textColor="white" style={{fontSize : "1em"}}>

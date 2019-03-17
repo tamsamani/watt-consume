@@ -10,7 +10,7 @@ import Modal from "./../Components/Modal";
 
 
 export default ({ parent, ...props }) => {
-    return <Page className="center" {...props}>
+	return <Page className="center" {...props}>
 	<Button raised color="primary" onClick={e=>parent.showModal("#addDevice")} text="Add Device"/>
 	<div className="mdl-color--accent-contrast mdl-color-text--primary mdl-shadow--16dp"
 		style={{margin: "20px auto",paddingBottom: "1em", borderRadius: "8px"}}>

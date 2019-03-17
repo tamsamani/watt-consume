@@ -209,7 +209,7 @@ const HistoryPage = ({ parent, ...props }) => {
 
 const SettingsPage = ({ parent, ...props }) => {
     return <Page {...props}>
-
+    
 	</Page>;
 };
 
