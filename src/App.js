@@ -29,6 +29,7 @@ class App extends Component {
 			return this;
 		},
 		pageTitle: "WattConsume",
+		IconsSetClose: [],
 
 		selectedIcon: 0,
 	}
@@ -39,11 +40,21 @@ class App extends Component {
 				this.action[action](...arg);
 			}
 		},
-		showIconSet: state => {
+		showIconSet: (state, onClose) => {
 			let icst = document.querySelector(".iconset");
 			if (icst) {
-				if (state) icst.classList.add("show");
-				else icst.classList.remove("show");
+				let { IconsSetClose } = this.store;
+				if (state) {
+					if (typeof onClose == "function") {
+						IconsSetClose.push(onClose);
+					}
+					icst.classList.add("show");
+				}
+				else {
+
+					icst.classList.remove("show");
+					while (IconsSetClose.length) IconsSetClose.pop()();
+				}
 			}
 		}
 	}
