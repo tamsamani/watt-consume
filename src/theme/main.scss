@@ -209,9 +209,6 @@ body {
 	display: unset;
 }
 
-.iconset.show {
-	transform: translate(0, 0);
-}
 
 .iconset {
 	position: fixed;
@@ -224,14 +221,33 @@ body {
 	transition: 0.8s all;
 	transform: translate(0, 100%);
 	width: 100vw;
-	background: #263238;
+	background: $dark;
 	box-shadow: 0 0 4px black;
-	z-index: 10000;
+	z-index: 10001;
+
+	&.show {
+		transform: translate(0, 0);
+		& ~ * {
+			filter:blur(4px);
+			&.backdrop {
+				display : block;
+			}
+		}
+	}
+	& > * {
+		cursor: pointer;
+		font-size: 1.5em !important;
+		margin: 4px 8px;
+	}
 }
 
-.iconset>* {
-	font-size: 1.5em !important;
-	margin: 4px 8px;
+.backdrop {
+	width : 100vw;
+	height: 100vh;
+	position: fixed;
+	z-index: 9999;
+	background:rgba(0,0,0,0.6);
+	display: none;
 }
 
 .mdl-snackbar {
