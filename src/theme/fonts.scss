@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Signika:300,400,600,700&subset=latin-ext');
+
+
+
+$font-signika : 'Signika';
+
+.primary-font {
+    @include do("font-family", $font-signika){
+        @include important($doProp, $doValue, true);
+    }
+}

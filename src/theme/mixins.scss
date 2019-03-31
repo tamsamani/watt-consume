@@ -1,0 +1,60 @@
+/*
+	DO Mixin
+	========
+	required : n/a;
+	initials : $doDrop, $doValue;
+	inhirits : @content;
+	description : you can with this mixin write a property:value
+	programaticallyas you want.
+*/
+$doProp : none !default;
+$doValue : none !default;
+@mixin do($prop, $value){
+	$doProp : $prop !global;
+	$doValue : $value !global;
+	#{$doProp} : #{$doValue};
+	@content;
+
+	$doProp : none !global;
+	$doValue : none !global;
+}
+
+/*
+	DONAME Mixin
+	============
+	required : do;
+	initials : n/a;
+	inhirits : @content;
+	description : it's add to selector a additional rest in two
+	state baseed to <$true> with or without '-' bitween in.
+*/
+@mixin doname($prop, $value, $name, $true: none){
+	$p : $name;
+	@if $true != none { $p : -#{$name}; }
+	&#{$p} { @include do($prop, $value){ @content } }
+}
+
+
+/*
+	IMPORANT
+	========
+	description : add to prop !important flag.
+*/
+@mixin important($prop, $value, $true: none){
+	@include doname($prop, #{$value} !important, "i", $true){
+		@content
+	}
+}
+
+/*
+	NEGATIVE
+	========
+	description : make a vlue of prop negative
+*/
+@mixin negative($prop, $value, $true:1){
+	@if strip-unit($value) != 0 {
+		@include doname($prop, -$value, "n", $true){
+			@content
+		}
+	}
+}

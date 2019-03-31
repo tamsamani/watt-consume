@@ -120,9 +120,9 @@ class App extends Component {
 		this.restore();
 		return (<div className="app mdl-layout">
             <SnackBar id="feedBack" />
-            <IconSet parent={this} selected={this.store.selectedIcon} />
-            
-            <div onClick={e=>this.actions.showIconSet(false)} class="backdrop"></div>
+            <IconSet parent={this} selected={this.store.selectedIcon} />            
+            <div onClick={e=>this.actions.showIconSet(false)} className="backdrop"></div>
+            <img src="/logo.svg" className="page-logo" />
 			<h3>{this.store.pageTitle}</h3>
 			<Footer parent={this} />
 			{this.getActivePage(this.state.active)}

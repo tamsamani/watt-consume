@@ -1,0 +1,59 @@
+/*
+	INITIAL COLORS
+	--------------
+	description : a default colors for this project.
+*/
+
+// primary
+$primary : #ffc107 !default;
+$primary-dark: #ffd54f;
+$primary-light : #ff6f00;
+
+// accent
+$accent : #673ab7 !default;
+$accent-light : #9575cd;
+$accent-dark : #311b92;
+
+// dark and light
+$dark : #212121;
+$light : #fafafa;
+$gery : #9e9e9e;
+
+// other mains color
+	//Danger
+$danger : #ff5722;
+$danger-light : #ff784e;
+$danger-dark : #b23c17;
+	// success :
+$success : #4caf50;
+$success-dark: #357a38 ;
+$success-light: #6fbf73;
+	//Warning :
+$warning : #ffea00;
+$warning-dark: #b28704;
+$warning-light: #ffef62;
+	//info :  #2196f3
+$info : #2196f3;
+$info-dark: #1769aa;
+$info-light: #4dabf5;
+
+	// :disabled
+$disabled : #cfd8dc;
+
+/**
+	DEFAULT COLOR SET
+	-----------------
+	description : a defaul colors to set in major components
+*/
+
+$background-color : #282c34;
+$text-color : $light;
+
+
+
+/*
+    FONT
+    ====
+
+*/
+$primary-font : $font-signika;

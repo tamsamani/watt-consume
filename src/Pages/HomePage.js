@@ -10,12 +10,7 @@ import Icon from "./../Components/Icon";
 export default ({ parent, ...props }) => {
 	//
 	return <Page className="controls" {...props}>
-		<div>
-		    no switch
-		</div>
-		<div>
-		    <Toggler className="mdl-button" on={<Icon power color="green" />} off={<Icon power_off color="orange" />} />
-		</div>
+		
 		<DeviceControl parent={parent} data={{
 			name : "Small Roomate",
 			location : "hall & Cuisine",
